@@ -8,13 +8,13 @@ import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class AutoUpdate {
+import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
 
+public class AutoUpdate {
     public static String autoUpdateCorePath;
     public static String autoUpdateDir = "auto_update";
     public static boolean useAutoUpdateJar = false;
-    private static final Logger logger = LoggerFactory.getLogger("AutoUpdate");
-
+    
     public static void init() {
         File workingDirFile = new File(autoUpdateDir);
 
@@ -36,21 +36,21 @@ public class AutoUpdate {
             autoUpdateCorePath = firstLine;
             File jarFile = new File(autoUpdateCorePath);
             if (!jarFile.isFile() || !jarFile.exists()) {
-                logger.warn("The specified server core: {} does not exist. Using the original jar!", autoUpdateCorePath);
+                LOGGER.warn("The specified server core: {} does not exist. Using the original jar!", autoUpdateCorePath);
                 return;
             }
 
             useAutoUpdateJar = true;
 
             if (!detectionLeavesclipVersion(autoUpdateCorePath)) {
-                logger.warn("Leavesclip version detection in server core: {} failed. Using the original jar!", autoUpdateCorePath);
+                LOGGER.warn("Leavesclip version detection in server core: {} failed. Using the original jar!", autoUpdateCorePath);
                 useAutoUpdateJar = false;
                 return;
             }
 
-            logger.info("Using server core: {} provide by Leavesclip-Auto-Update", autoUpdateCorePath);
+            LOGGER.info("Using server core: {} provide by Leavesclip-Auto-Update", autoUpdateCorePath);
         } catch (IOException e) {
-            logger.error(e.getLocalizedMessage(), e);
+            LOGGER.error(e.getLocalizedMessage(), e);
         }
     }
 
@@ -102,7 +102,7 @@ public class AutoUpdate {
                 throw new IOException(name + " not found in our jar or in the " + jarPath);
             }
         } catch (IOException e) {
-            logger.error(e.getLocalizedMessage(), e);
+            LOGGER.error(e.getLocalizedMessage(), e);
         }
         return result;
     }

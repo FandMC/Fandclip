@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.file.StandardOpenOption.WRITE;
+import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
 
 record DownloadContext(byte[] hash, URL url, String fileName) {
 
@@ -49,7 +50,7 @@ record DownloadContext(byte[] hash, URL url, String fileName) {
         }
         Files.deleteIfExists(outputFile);
 
-        System.out.println("Downloading " + this.fileName);
+        LOGGER.info("Downloading " + this.fileName);
 
         try (
                 final ReadableByteChannel source = Channels.newChannel(this.url.openStream());
@@ -57,8 +58,7 @@ record DownloadContext(byte[] hash, URL url, String fileName) {
         ) {
             fileChannel.transferFrom(source, 0, Long.MAX_VALUE);
         } catch (final IOException e) {
-            System.err.println("Failed to download " + this.fileName);
-            e.printStackTrace();
+            LOGGER.error("Failed to download {}", this.fileName, e);
             System.exit(1);
         }
 

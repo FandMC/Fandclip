@@ -25,7 +25,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public final class Leavesclip {
-    private static final Logger logger = LoggerFactory.getLogger("Leavesclip");
+    public static final Logger LOGGER = LoggerFactory.getLogger("Leavesclip");
     private static final String DEFAULT_TWEAK = "org.spongepowered.asm.launch.MixinTweaker";
     public static LaunchClassLoader classLoader;
     public static Map<String, Object> blackboard = new HashMap<>();
@@ -36,7 +36,7 @@ public final class Leavesclip {
 
     private Leavesclip(final String[] args) {
         if (Path.of("").toAbsolutePath().toString().contains("!")) {
-            logger.error("Leavesclip may not run in a directory containing '!'. Please rename the affected folder.");
+            LOGGER.error("Leavesclip may not run in a directory containing '!'. Please rename the affected folder.");
             System.exit(1);
         }
 
@@ -92,14 +92,14 @@ public final class Leavesclip {
                     final String tweakName = it.next();
                     // Safety check - don't reprocess something we've already visited
                     if (visitedTweakerNames.contains(tweakName)) {
-                        logger.warn("Tweak class name {} has already been visited -- skipping", tweakName);
+                        LOGGER.warn("Tweak class name {} has already been visited -- skipping", tweakName);
                         // remove the tweaker from the stack otherwise it will create an infinite loop
                         it.remove();
                         continue;
                     } else {
                         visitedTweakerNames.add(tweakName);
                     }
-                    logger.info("Loading tweak class name {}", tweakName);
+                    LOGGER.info("Loading tweak class name {}", tweakName);
 
                     // Ensure we allow the tweak class to load with the parent classloader
                     classLoader.getClassLoaderExclusions().add(tweakName.substring(0, tweakName.lastIndexOf('.')));
@@ -111,7 +111,7 @@ public final class Leavesclip {
                     it.remove();
                     // If we haven't visited a tweaker yet, the first will become the 'primary' tweaker
                     if (primaryTweaker == null) {
-                        logger.info("Using primary tweak class name {}", tweakName);
+                        LOGGER.info("Using primary tweak class name {}", tweakName);
                         primaryTweaker = tweaker;
                     }
                 }
@@ -122,7 +122,7 @@ public final class Leavesclip {
                 // Now, iterate all the tweakers we just instantiated
                 while (!pendingTweakers.isEmpty()) {
                     final ITweaker tweaker = pendingTweakers.removeFirst();
-                    logger.info("Calling tweak class {}", tweaker.getClass().getName());
+                    LOGGER.info("Calling tweak class {}", tweaker.getClass().getName());
                     tweaker.acceptOptions(options.valuesOf(nonOption));
                     tweaker.injectIntoClassLoader(classLoader);
                     allTweakers.add(tweaker);
@@ -137,12 +137,12 @@ public final class Leavesclip {
             }
 
             final String mainClassName = findMainClass();
-            logger.info("Starting {}", mainClassName);
+            LOGGER.info("Starting {}", mainClassName);
 
             final Thread runThread = getServerMainThread(args, argumentList, mainClassName);
             runThread.start();
         } catch (Exception e) {
-            logger.error("Unable to launch", e);
+            LOGGER.error("Unable to launch", e);
             System.exit(1);
         }
     }

@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
+
 class Util {
 
     private Util() {
@@ -107,9 +109,9 @@ class Util {
     }
 
     static RuntimeException fail(final String message, final Throwable err) {
-        System.err.println(message);
+        LOGGER.error(message);
         if (err != null) {
-            err.printStackTrace();
+            LOGGER.error("Error", err);
         }
         System.exit(1);
         throw new InternalError();
