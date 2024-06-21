@@ -18,9 +18,7 @@ import java.io.InputStreamReader;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.Method;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -141,24 +139,29 @@ public final class Leavesclip {
             final String mainClassName = findMainClass();
             logger.info("Starting {}", mainClassName);
 
-            final Thread runThread = new Thread(() -> {
-                try {
-                    argumentList.addAll(Arrays.asList(args));
-                    final Class<?> mainClass = Class.forName(mainClassName, true, classLoader);
-                    final MethodHandle mainHandle = MethodHandles.lookup()
-                            .findStatic(mainClass, "main", MethodType.methodType(void.class, String[].class))
-                            .asFixedArity();
-                    mainHandle.invoke((Object) argumentList.toArray(new String[0]));
-                } catch (final Throwable t) {
-                    throw Util.sneakyThrow(t);
-                }
-            }, "ServerMain");
-            runThread.setContextClassLoader(classLoader);
+            final Thread runThread = getServerMainThread(args, argumentList, mainClassName);
             runThread.start();
         } catch (Exception e) {
             logger.error("Unable to launch", e);
             System.exit(1);
         }
+    }
+
+    private static @NotNull Thread getServerMainThread(String[] args, List<String> argumentList, String mainClassName) {
+        final Thread runThread = new Thread(() -> {
+            try {
+                argumentList.addAll(Arrays.asList(args));
+                final Class<?> mainClass = Class.forName(mainClassName, true, classLoader);
+                final MethodHandle mainHandle = MethodHandles.lookup()
+                        .findStatic(mainClass, "main", MethodType.methodType(void.class, String[].class))
+                        .asFixedArity();
+                mainHandle.invoke((Object) argumentList.toArray(new String[0]));
+            } catch (final Throwable t) {
+                throw Util.sneakyThrow(t);
+            }
+        }, "ServerMain");
+        runThread.setContextClassLoader(classLoader);
+        return runThread;
     }
 
     private void configureMixin() {

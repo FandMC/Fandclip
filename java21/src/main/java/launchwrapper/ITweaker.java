@@ -53,6 +53,7 @@ public interface ITweaker {
      * @param profile unknown
      * @deprecated This method is not used internally. See {@link ITweaker#acceptOptions(List)}
      */
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     default void acceptOptions(@NotNull List<String> args, File gameDir, final File assetsDir, String profile) {
         throw new IllegalStateException("Please implement this method.");

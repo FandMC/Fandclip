@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 public interface IClassTransformer {
     /**
      * Transforms class
-     *
+     * <p>
      * Note that class names are using dots instead of slashes.
      *
      * @param name             Class unmapped name

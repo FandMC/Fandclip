@@ -74,7 +74,7 @@ public class LaunchClassLoader extends URLClassLoader {
     private final Set<String> classLoaderExceptions = new HashSet<>();
     private final Set<String> transformerExceptions = new HashSet<>();
     private final Map<String, byte[]> resourceCache = new ConcurrentHashMap<>(1000);
-    private final Set<String> negativeResourceCache = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
+    private final Set<String> negativeResourceCache = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     @Nullable
     private IClassNameTransformer renameTransformer = null;
@@ -91,6 +91,7 @@ public class LaunchClassLoader extends URLClassLoader {
     private static final boolean DEBUG_SAVE = DEBUG && Boolean.getBoolean("legacy.debugClassLoadingSave");
     private static final Path DUMP_PATH = Paths.get(System.getProperty("legacy.classDumpPath", "./.classloader.out"));
 
+    @SuppressWarnings("CommentedOutCode")
     public LaunchClassLoader(URL[] sources, ClassLoader parent) {
         super(sources, null);
         this.parent = parent;
