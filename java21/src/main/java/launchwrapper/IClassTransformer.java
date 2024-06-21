@@ -44,6 +44,5 @@ public interface IClassTransformer {
      * @param classData       Raw class data or null
      * @return Transformed (or supplied) class data or null
      */
-    @Nullable
-    byte[] transform(@NotNull String name, @NotNull String transformedName, @Nullable byte[] classData);
+    byte @Nullable [] transform(@NotNull String name, @NotNull String transformedName, byte @Nullable [] classData);
 }
