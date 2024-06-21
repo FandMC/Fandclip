@@ -7,16 +7,15 @@ between the vanilla Minecraft server and the modified Leaves server to generate 
 upon first run. Once the Leaves server is generated it loads the patched jar into Leavesclip's own class loader, and runs
 the main class.
 
-On the basis of Paperclip, we have added the feature of using any Jar as a patch to support automatic updates.
-Please note that this may bring some safety hazards.
-
-You can completely disable this feature by adding the jvm parameter ```-Dleavesclip.disable.auto-update=true```
-
-
 This avoids the legal problems of the GPL's linking clause.
 
 The patching overhead is avoided if a valid patched jar is found in the cache directory.
 It checks via sha256 so any modification to those jars (or updated launcher) will cause a repatch.
+
+On the basis of Paperclip, we have added the feature of using any Jar as a patch to support automatic updates.
+Please note that this may bring some safety hazards.
+
+You can completely disable this feature by adding the jvm parameter ```-Dleavesclip.disable.auto-update=true```
 
 Building
 --------
