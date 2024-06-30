@@ -45,7 +45,7 @@ tasks.jar {
         into("META-INF")
     }
 
-    from(file("license.txt")) {
+    from(file("LEAVESCLIP_LICENSE")) {
         into("META-INF/license")
         rename { "leavesclip-LICENSE.txt" }
     }
@@ -95,7 +95,7 @@ publishing {
                 licenses {
                     license {
                         name.set("MIT")
-                        url.set("$repoUrl/blob/main/license.txt")
+                        url.set("$repoUrl/blob/main/LEAVESCLIP_LICENSE")
                         distribution.set("repo")
                     }
                 }

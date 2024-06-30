@@ -3,7 +3,7 @@ on:
   push:
     branches: ['leavesclip']
     paths-ignore:
-      - 'license.txt'
+      - '../../licenses/'
       - 'readme.md'
       - '.gitignore'
       - '.gitattributes'
