@@ -14,7 +14,7 @@ subprojects {
     }
 }
 
-val mainClass = "org.leavesmc.leavesclip.Main"
+val mainClass = "com.fandmc.fandclip.Main"
 
 tasks.jar {
     val java6Jar = project(":java6").tasks.named("jar")
@@ -31,23 +31,23 @@ tasks.jar {
     }
 
     doFirst {
-        val clipVerFile = File("leavesclip-version")
+        val clipVerFile = File("fandclip-version")
         if (!clipVerFile.exists()) {
             if(!clipVerFile.createNewFile()){
-                println("failed to create file: leavesclip-version")
+                println("failed to create file: fandclip-version")
                 exitProcess(1)
             }
         }
         clipVerFile.writeText(project.version.toString())
     }
 
-    from(file("leavesclip-version")) {
+    from(file("fandclip-version")) {
         into("META-INF")
     }
 
-    from(file("LEAVESCLIP_LICENSE")) {
+    from(file("FANDCLIP_LICENSE")) {
         into("META-INF/license")
-        rename { "leavesclip-LICENSE.txt" }
+        rename { "fandclip-LICENSE.txt" }
     }
 
     rename { name ->
@@ -84,10 +84,10 @@ publishing {
             withoutBuildIdentifier()
 
             pom {
-                val repoPath = "LeavesMC/Leavesclip"
+                val repoPath = "FandMC/Fandclip"
                 val repoUrl = "https://github.com/$repoPath"
 
-                name.set("Leavesclip")
+                name.set("Fandclip")
                 description.set(project.description)
                 url.set(repoUrl)
                 packaging = "jar"
@@ -95,7 +95,7 @@ publishing {
                 licenses {
                     license {
                         name.set("MIT")
-                        url.set("$repoUrl/blob/main/LEAVESCLIP_LICENSE")
+                        url.set("$repoUrl/blob/main/FANDCLIP_LICENSE")
                         distribution.set("repo")
                     }
                 }
@@ -107,16 +107,10 @@ publishing {
 
                 developers {
                     developer {
-                        id.set("DemonWav")
-                        name.set("Kyle Wood")
-                        email.set("demonwav@gmail.com")
-                        url.set("https://github.com/DemonWav")
-                    }
-                    developer {
-                        id.set("MC_XiaoHei")
-                        name.set("MC_XiaoHei")
-                        email.set("xiaohei.xor7studio@foxmail.com")
-                        url.set("https://github.com/MC_XiaoHei")
+                        id.set("MC20018")
+                        name.set("FandMC")
+                        email.set("fand.20018@outlook.com")
+                        url.set("https://github.com/FandMC")
                     }
                 }
 
@@ -137,7 +131,7 @@ publishing {
 
             maven(url) {
                 credentials(PasswordCredentials::class)
-                name = "leavesmc"
+                name = "fandmc"
             }
         }
     }

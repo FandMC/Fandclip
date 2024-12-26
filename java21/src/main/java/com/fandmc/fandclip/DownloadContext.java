@@ -1,4 +1,4 @@
-package org.leavesmc.leavesclip;
+package com.fandmc.fandclip;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.file.StandardOpenOption.WRITE;
-import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
+import static com.fandmc.fandclip.Fandclip.LOGGER;
 
 record DownloadContext(byte[] hash, URL url, String fileName) {
 

@@ -1,4 +1,4 @@
-package org.leavesmc.leavesclip;
+package com.fandmc.fandclip;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
+import static com.fandmc.fandclip.Fandclip.LOGGER;
 
 class Util {
 

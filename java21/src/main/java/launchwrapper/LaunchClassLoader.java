@@ -49,7 +49,7 @@ import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import static java.util.Objects.requireNonNull;
-import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
+import static com.fandmc.fandclip.Fandclip.LOGGER;
 
 public class LaunchClassLoader extends URLClassLoader {
     static {

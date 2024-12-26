@@ -22,7 +22,7 @@ val lwtsVersion = "1.1.0-SNAPSHOT"
 val shurikenVersion = "0.0.1-SNAPSHOT"
 
 val mixinVersion = "0.8.7-SNAPSHOT"
-val leavesApiVersion = "1.20.6-R0.1-SNAPSHOT"
+val fandApiVersion = "1.20.6-R0.1-SNAPSHOT"
 
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(21)
@@ -33,6 +33,7 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-releases/")
     maven("https://repo.spongepowered.org/repository/maven-public/")
     maven("https://repo.leavesmc.org/snapshots")
+    maven("https://repo.fandmc.cn/snapshots")
 }
 
 dependencies {
@@ -46,7 +47,7 @@ dependencies {
 }
 
 tasks.shadowJar {
-    val prefix = "leavesclip.libs"
+    val prefix = "fandclip.libs"
     listOf("org.apache", "org.tukaani", "io.sigpipe").forEach { pack ->
         relocate(pack, "$prefix.$pack")
     }

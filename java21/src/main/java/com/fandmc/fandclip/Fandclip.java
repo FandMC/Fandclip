@@ -1,4 +1,4 @@
-package org.leavesmc.leavesclip;
+package com.fandmc.fandclip;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -24,29 +24,29 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.*;
 
-public final class Leavesclip {
-    public static final Logger LOGGER = LoggerFactory.getLogger("Leavesclip");
+public final class Fandclip {
+    public static final Logger LOGGER = LoggerFactory.getLogger("Fandclip");
     private static final String DEFAULT_TWEAK = "org.spongepowered.asm.launch.MixinTweaker";
     public static LaunchClassLoader classLoader;
     public static Map<String, Object> blackboard = new HashMap<>();
 
     public static void main(final String[] args) {
-        new Leavesclip(args);
+        new Fandclip(args);
     }
 
-    private Leavesclip(final String[] args) {
+    private Fandclip(final String[] args) {
         if (Path.of("").toAbsolutePath().toString().contains("!")) {
-            LOGGER.error("Leavesclip may not run in a directory containing '!'. Please rename the affected folder.");
+            LOGGER.error("Fandclip may not run in a directory containing '!'. Please rename the affected folder.");
             System.exit(1);
         }
 
-        if (!Boolean.getBoolean("leavesclip.disable.auto-update")) {
+        if (!Boolean.getBoolean("Fandclip.disable.auto-update")) {
             AutoUpdate.init();
         }
 
         final URL[] classpathUrls = setupClasspath();
 
-        final ClassLoader parentClassLoader = Leavesclip.class.getClassLoader().getParent();
+        final ClassLoader parentClassLoader = Fandclip.class.getClassLoader().getParent();
         classLoader = new LaunchClassLoader(classpathUrls, parentClassLoader);
 
         final OptionParser parser = new OptionParser();
@@ -192,9 +192,10 @@ public final class Leavesclip {
 
         final Map<String, Map<String, URL>> classpathUrls = extractAndApplyPatches(baseFile, patches, repoDir);
 
-        // Exit if user has set `paperclip.patchonly` or `leavesclip.patchonly` system property to `true`
-        if (Boolean.getBoolean("paperclip.patchonly")
-                || Boolean.getBoolean("leavesclip.patchonly")) {
+        // Exit if user has set `paperclip.patchonly`, `leavesclip.patchonly`, or `fandclip.patchonly` system property to `true`
+        if (Boolean.getBoolean("paperclip.patchonly") ||
+                Boolean.getBoolean("leavesclip.patchonly") ||
+                Boolean.getBoolean("fandclip.patchonly")) {
             System.exit(0);
         }
 

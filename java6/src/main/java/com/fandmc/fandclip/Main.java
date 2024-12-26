@@ -7,7 +7,7 @@
  * MIT License
  */
 
-package org.leavesmc.leavesclip;
+package com.fandmc.fandclip;
 
 import java.lang.reflect.Method;
 
@@ -21,7 +21,7 @@ public final class Main {
         }
 
         try {
-            final Class<?> paperclipClass = Class.forName("org.leavesmc.leavesclip.Leavesclip");
+            final Class<?> paperclipClass = Class.forName("com.fandmc.fandclip.Fandclip");
             final Method mainMethod = paperclipClass.getMethod("main", String[].class);
             mainMethod.invoke(null, (Object) args);
         } catch (final Exception e) {

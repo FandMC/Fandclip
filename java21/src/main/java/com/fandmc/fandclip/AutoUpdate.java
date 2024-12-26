@@ -1,4 +1,4 @@
-package org.leavesmc.leavesclip;
+package com.fandmc.fandclip;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static org.leavesmc.leavesclip.Leavesclip.LOGGER;
+import static com.fandmc.fandclip.Fandclip.LOGGER;
 
 public class AutoUpdate {
     public static String autoUpdateCorePath;
@@ -42,22 +42,22 @@ public class AutoUpdate {
 
             useAutoUpdateJar = true;
 
-            if (!detectionLeavesclipVersion(autoUpdateCorePath)) {
-                LOGGER.warn("Leavesclip version detection in server core: {} failed. Using the original jar!", autoUpdateCorePath);
+            if (!detectionFandclipVersion(autoUpdateCorePath)) {
+                LOGGER.warn("Fandclip version detection in server core: {} failed. Using the original jar!", autoUpdateCorePath);
                 useAutoUpdateJar = false;
                 return;
             }
 
-            LOGGER.info("Using server core: {} provide by Leavesclip-Auto-Update", autoUpdateCorePath);
+            LOGGER.info("Using server core: {} provide by Fandclip-Auto-Update", autoUpdateCorePath);
         } catch (IOException e) {
             LOGGER.error(e.getLocalizedMessage(), e);
         }
     }
 
-    private static boolean detectionLeavesclipVersion(String jarPath) {
+    private static boolean detectionFandclipVersion(String jarPath) {
         byte[] localBytes;
 
-        try (InputStream localStream = AutoUpdate.class.getResourceAsStream("/META-INF/leavesclip-version")) {
+        try (InputStream localStream = AutoUpdate.class.getResourceAsStream("/META-INF/fandclip-version")) {
             if (localStream != null) {
                 localBytes = localStream.readAllBytes();
             } else {
@@ -67,7 +67,7 @@ public class AutoUpdate {
             throw new RuntimeException(e);
         }
 
-        try (InputStream externalStream = getResourceAsStream(jarPath, "/META-INF/leavesclip-version")) {
+        try (InputStream externalStream = getResourceAsStream(jarPath, "/META-INF/fandclip-version")) {
             if (externalStream != null) {
                 return Arrays.equals(localBytes, externalStream.readAllBytes());
             }
