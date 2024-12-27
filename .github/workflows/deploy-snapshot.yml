@@ -1,7 +1,7 @@
 name: Deploy Snapshot
 on:
   push:
-    branches: ['leavesclip']
+    branches: ['fandclip']
     paths-ignore:
       - '../../licenses/'
       - 'readme.md'
